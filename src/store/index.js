@@ -24,18 +24,11 @@ export default createStore({
   actions:{
     
    async GET_COMICS({commit}){
-    var config = {
-      headers: {
-           'Content-type': 'text/plain',
-           'Access-Control-Allow-Headers': '*',
-           'Access-Control-Allow-Origin':'*',
-           'Access-Control-Allow-Methods':'GET',
-         }
-   };
       try {
-        const res  = await fetch('https://xkcd.com/500/info.0.json',config)
+        const res  = await fetch('/api/100/info.0.json')
         const data = await res.json()
-        commit('SET_COMICS', JSON.stringify(data))
+        // console.log(data)
+        commit('SET_COMICS', data)
        
       } catch (error) {
         console.log("Error en el actions get commits")

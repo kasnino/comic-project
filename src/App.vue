@@ -27,5 +27,6 @@ body::after{
     inset: 0px;
     background: rgba(0, 0, 0, 0) linear-gradient(270deg, rgba(255, 255, 255, 0) -44.17%, rgb(18, 20, 29) 55.09%) repeat scroll 0% 0%;
     z-index: -1;
+    height:100vh;
 }
 </style>

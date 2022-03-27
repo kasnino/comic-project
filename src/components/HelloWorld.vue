@@ -7,7 +7,15 @@
   })
 
   const store = useStore()
+  const count  = computed(() => store.state.count);
+  const comics = computed(() => store.state.comics);
 
+  // Methods interno ciclo de vida
+  onMounted(() => {
+   store.dispatch('GET_COMICS');
+  })
+
+  // Methods
   function incrementCount() {
       store.commit('INCREMENT_COMIC')
   }
@@ -16,35 +24,41 @@
       store.commit('DECREMENT_COMIC')
   }
 
-  const count  = computed(() => store.state.count);
-  const comics = computed(() => store.state.comics);
-
-  onMounted(() => {
-   store.dispatch('GET_COMICS');
-  })
+  
 </script>
 
 <template>
 <div class="grid grid-cols-1 gap-4">
-  <div class=" text-center p-4 h-auto">
-
-
-
-      <pre v-if="comics">
-        {{comics}}
-      </pre>
-       <h1 class="text-3xl font-bold text-white ">
-  </h1>
+  <div v-if="comics"  class=" text-center p-4 "> 
+   
+      
+ :{{ comics}}
+  <img :src="comics.img" width="350" height="350"/>
+     
+         
+      
+     
+  
+   
   <button @click="incrementCount" class="bg-pink-500  hover:bg-purple-400 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-purple-500 rounded">
-  +
+  Next +
 </button>
  
-   count is: {{ count }}
+   <button @click="incrementCount" class="bg-pink-500  hover:bg-purple-400 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-purple-500 rounded">
+  Random
+</button>
+
   
   <button @click="decrementCount" class="bg-pink-500  hover:bg-purple-400 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-purple-500 rounded">
-    -</button>
+   Prev -</button>
 
+  <button @click="incrementCount" class="bg-pink-500  hover:bg-purple-400 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-purple-500 rounded">
+  Firts
+</button>
 
+  <button @click="incrementCount" class="bg-pink-500  hover:bg-purple-400 text-white font-bold py-2 px-4 border-b-4 border-purple-700 hover:border-purple-500 rounded">
+  Lats +
+</button>
   </div>
 
 </div>

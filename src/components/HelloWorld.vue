@@ -1,22 +1,32 @@
 <script setup>
-import { ref } from 'vue'
+ import { useStore } from 'vuex'
+ import { ref, computed } from 'vue'
 
-defineProps({
-  msg: String
-})
+  defineProps({
+    msg: String
+  })
 
-const count = ref(10)
+  const store = useStore()
+
+  function incrementCount() {
+      store.commit('increment')
+  }
+
+  function decrementCount() {
+      store.commit('decrement')
+  }
+
+   const count = computed(() => store.state.count);
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
-  <p>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank"> Vue 3 Documentation</a>
-      |
-  </p>
-
-  <button type="button" @click="count++">count is: {{ count }}</button>
+  <h1 class="text-cyan">{{ msg }}</h1>
+ <h1 class="text-3xl font-bold text-white ">
+    Hello world!
+  </h1>
+  <button type="button" @click="incrementCount">+</button>
+   count is: {{ count }}
+  <button type="button" @click="decrementCount">-</button>
 
 </template>
 

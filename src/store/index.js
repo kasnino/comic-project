@@ -3,8 +3,15 @@ import { createStore } from "vuex";
 export default createStore({
   state () {
     return {
-      count: 1,
-      comics: []
+      count: 766,
+      comics: [],
+      ramdomID: 100,
+      minID: 1,
+      maxID: 2426,
+      comics_views: [],
+      loading: false,
+      URL_API: '/api/',
+      PATH_URL: '/info.0.json',
      }
   },
   mutations: {
@@ -19,17 +26,33 @@ export default createStore({
 
     SET_COMICS (state, payload){
       state.comics = payload
+    },
+
+    NUM_ALEATORIO (state){
+      state.count = Math.floor(Math.random() * (state.maxID - state.minID + 1)) + state.minID;
+    },
+
+    COMICS_VIEWS (state){
+      state.comics_views = state.comics_views.push(state.comics)
+    },
+
+    LOADING_DATA(state, loadingStatus){
+      state.loading = loadingStatus
+    },
+
+    SEARCH_ID(state, payload){
+      state.count = payload
     }
   },
   actions:{
     
-   async GET_COMICS({commit}){
+   async GET_COMICS({commit, state}){
+    commit('LOADING_DATA', true)
       try {
-        const res  = await fetch('/api/100/info.0.json')
+        const res  = await fetch(`/api/${state.count}/info.0.json`)
         const data = await res.json()
-        // console.log(data)
-        commit('SET_COMICS', data)
-       
+          commit('SET_COMICS', data)
+          commit('LOADING_DATA',false)
       } catch (error) {
         console.log("Error en el actions get commits")
       }

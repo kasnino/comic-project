@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       // string shorthand
-      '/foo': 'http://localhost:4567',
+  
       // with options
       '/api': {
         target: "https://xkcd.com/",

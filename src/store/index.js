@@ -8,6 +8,7 @@ export default createStore({
       ramdomID: 100,
       minID: 1,
       maxID: 2426,
+      rating: 0,
       comics_views: [],
       loading: false,
       URL_API: '/api/',

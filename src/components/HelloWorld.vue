@@ -3,6 +3,9 @@ import { useStore } from "vuex";
 import { ref, computed, onMounted } from "vue";
 import EsqueletonLoading from './EsqueletonLoading.vue'
 import SearchComics from './SearchComics.vue'
+import StartRanking from './StartRanking.vue'
+import StarRating from 'vue-star-rating'
+
 defineProps({
   msg: String
 });
@@ -11,7 +14,7 @@ const store    = useStore();
 const count    = computed(() => store.state.count);
 const comics   = computed(() => store.state.comics);
 const loading  = computed(() => store.state.loading);
-
+const rating   = computed(() => store.state.rating);
 // Methods interno ciclo de vida
 onMounted(() => {
   store.dispatch("GET_COMICS");
@@ -40,7 +43,7 @@ function numeroAleatorio() {
     <div class=" flex flex-col h-100 items-center text-white">
           <div v-if="loading" class="loading">
               <EsqueletonLoading/>
-             
+                
           </div>
       <div v-else class=" text-center  text-white p-4">
         <h1 class="text-4xl font-medium leading-tight text-gray-600 mb-2.5 underline mt-0"> {{ comics.title }}</h1>
@@ -61,11 +64,14 @@ function numeroAleatorio() {
                   </figure>
              
                 </div>
-                <div class="flex mt-2  align-end rounded h-10 justify-end text-end w-100 inline-flex">
-              <svg class="cursor-pointer mt-3 w-6 h-10 " v-for="(item, index) in 5" :key="index" fill="#ffff00" >
-                <path  d="M7.05 3.691c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.372 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.539 1.118l-2.8-2.034a1 1 0 00-1.176 0l-2.8 2.034c-.783.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.363-1.118L.98 9.483c-.784-.57-.381-1.81.587-1.81H5.03a1 1 0 00.95-.69L7.05 3.69z" />
-              </svg>
-              </div>
+                <div class="mt-2 w-100  text-center flex justify-center">
+                    <!-- Start ranking -->
+                    <star-rating 
+                    v-model:rating="rating"
+                     v-bind:star-size="40"
+                     :animate="true"
+                    ></star-rating>
+                </div>
                 <div class="mt-5  ">
                   <span class="p-6 ">
                   <button

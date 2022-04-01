@@ -50,7 +50,7 @@ export default createStore({
    async GET_COMICS({commit, state}){
     commit('LOADING_DATA', true)
       try {
-        const res  = await fetch(`/api/${state.count}/info.0.json`)
+        const res  = await fetch(`https://xkcd.com/${state.count}/info.0.json`)
         const data = await res.json()
           commit('SET_COMICS', data)
           commit('LOADING_DATA',false)
